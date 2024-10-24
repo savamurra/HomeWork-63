@@ -1,8 +1,8 @@
 import {Button, TextField, Typography} from "@mui/material";
 import Grid from '@mui/material/Grid2';
-import {useState} from "react";
-import {IBlogForm} from "../../types";
-import axiosAPI from "../../axiosAPI.tsx";
+import React, {useEffect, useState} from "react";
+import {IPostForm} from "../../types";
+import {useNavigate} from "react-router-dom";
 
 const initial = {
     title: "",
@@ -10,8 +10,27 @@ const initial = {
     description: "",
 };
 
-const BlogForm = () => {
-    const [form, setForm] = useState<IBlogForm>(initial);
+interface Props {
+    postToEdit? : IPostForm;
+    submitForm: (data: IPostForm) => void;
+}
+
+const PostForm: React.FC<Props> = ({submitForm, postToEdit}) => {
+    const [form, setForm] = useState<IPostForm>(initial);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (postToEdit) {
+            setForm(prevState => (
+                {
+                    ...prevState,
+                    ...postToEdit
+                }
+            ));
+        }
+    }, [postToEdit]);
+
+
 
     const onChangeField = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target;
@@ -21,15 +40,16 @@ const BlogForm = () => {
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        await axiosAPI.post('blog.json', {...form, date: new Date().toISOString()});
+        submitForm({...form});
+
+        navigate('/');
 
         setForm({...initial});
-
     };
 
     return (
         <form onSubmit={onSubmit}>
-            <Typography variant="h4" sx={{ flexGrow: 1, textAlign: 'center'}}>Add new Blog</Typography>
+            <Typography variant="h4" sx={{ flexGrow: 1, textAlign: 'center'}}>{postToEdit ? 'Edit post' : 'Add new post'}</Typography>
             <Grid container spacing={2} sx={{mx: "auto", width: "50%", mt: 4}}>
                 <Grid size={12}>
                     <TextField
@@ -57,7 +77,7 @@ const BlogForm = () => {
 
                 <Grid size={12}>
                     <Button type='submit' variant='contained' sx={{width:'100%'}}>
-                        Add
+                        {postToEdit ? 'Edit post' : 'Add new post'}
                     </Button>
                 </Grid>
             </Grid>
@@ -65,4 +85,4 @@ const BlogForm = () => {
     );
 };
 
-export default BlogForm;
+export default PostForm;
