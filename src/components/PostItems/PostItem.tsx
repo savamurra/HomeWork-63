@@ -11,20 +11,22 @@ interface PostItem {
 const BlogItems: React.FC<PostItem> = ({blog}) => {
     return (
         <>
-            <Card sx={{minWidth: 275}}>
+            <Card sx={{width: '100%'}}>
                 <CardContent>
-                    <Typography variant="body2" sx={{color: 'text.secondary', fontSize: 16}}>
-                        Created on: <strong>{new Date(blog.date).toLocaleString()}</strong>
-                    </Typography>
                     <Typography gutterBottom sx={{fontSize: 20}}>
                         {blog.title}
                     </Typography>
                 </CardContent>
-                <CardActions>
+                <CardActions style={{display: "flex", justifyContent: "space-between"}}>
                     <Button size="small"
                             to={`/posts/${blog.id}`}
-                            component={NavLink}>Read more
+                            component={NavLink}
+                            color='warning'
+                    >Read more
                     </Button>
+                    <Typography variant="body2" sx={{color: 'text.secondary', fontSize: 16}}>
+                        Created on: <strong>{new Date(blog.date).toLocaleString()}</strong>
+                    </Typography>
                 </CardActions>
             </Card>
         </>

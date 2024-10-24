@@ -3,20 +3,25 @@ import {IPost, IPostForm} from "../../types";
 import {useNavigate, useParams} from "react-router-dom";
 import axiosAPI from "../../axiosAPI.tsx";
 import PostForm from "../../components/./PostForm/PostForm.tsx";
+import Spinner from "../../components/UI/Spinner/Spinner.tsx";
 
 const EditPost = () => {
     const [post, setPost] = useState<IPost>();
     const params = useParams<{ idPost: string }>();
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
 
     const fetchOneBlog = useCallback(async (id: string) => {
         try {
+            setLoading(true);
             const response: { data: IPost } = await axiosAPI<IPost>(`post/${id}.json`);
             if (response.data) {
                 setPost(response.data);
             }
         } catch (e) {
             console.log(e);
+        } finally {
+            setLoading(false);
         }
     }, []);
 
@@ -43,8 +48,11 @@ const EditPost = () => {
 
     return (
         <>
-            {post ? <PostForm submitForm={submitForm} postToEdit={post}/> : null}
-
+            {loading ? <Spinner/> :
+                <>
+                    {post ? <PostForm submitForm={submitForm} postToEdit={post}/> : null}
+                </>
+            }
         </>
     );
 };

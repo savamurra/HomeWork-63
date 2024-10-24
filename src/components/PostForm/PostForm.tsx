@@ -76,7 +76,7 @@ const PostForm: React.FC<Props> = ({submitForm, postToEdit}) => {
                 </Grid>
 
                 <Grid size={12}>
-                    <Button type='submit' variant='contained' sx={{width:'100%'}}>
+                    <Button type='submit' variant='contained' sx={{width:'100%', background:'red'}}>
                         {postToEdit ? 'Edit post' : 'Add new post'}
                     </Button>
                 </Grid>
