@@ -6,8 +6,8 @@ const Navbar = () => {
     return (
         <>
             <Box sx={{ flexGrow: 1 , mb: 4}}>
-                <AppBar position="static">
-                    <Toolbar>
+                <AppBar position="static" sx={{background: "red"}}>
+                    <Toolbar sx={{ background: 'red', width: 1200, mx: 'auto' }}>
                         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                             My blog
                         </Typography>
