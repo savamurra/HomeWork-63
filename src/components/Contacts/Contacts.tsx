@@ -1,4 +1,33 @@
+import {useCallback, useEffect, useState} from "react";
+import {IInfoAPI} from "../../types";
+import axiosAPI from "../../axiosAPI.tsx";
+import Spinner from "../UI/Spinner/Spinner.tsx";
+
 const Contacts = () => {
+    const [info, setInfo] = useState<IInfoAPI>();
+    const [loading, setLoading] = useState<boolean>(true);
+
+    const fetchInfoData = useCallback(async () => {
+        try {
+            setLoading(true);
+            const response: { data: IInfoAPI } = await axiosAPI<IInfoAPI>('contacts.json');
+            if (response.data) {
+
+
+                setInfo(response.data);
+            }
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
+    }, []);
+
+
+    useEffect(() => {
+        void fetchInfoData();
+    }, [fetchInfoData]);
+
 
     const style = {
         padding: "40px",
@@ -7,23 +36,35 @@ const Contacts = () => {
     };
 
     return (
-        <div style={{background: "black"}}>
-            <h2 style={style}>
-                SPIDER-MAN™: NO WAY HOME Now on Digital | On 4K Ultra HD™, Blu-ray™ and DVD April 12
-                © 2022 Layout and Design Sony Pictures Home Entertainment Inc. All Rights Reserved
-            </h2>
-            <h2 style={style}>
-                © 2022 SONY PICTURES DIGITAL PRODUCTION INC. ALL RIGHTS RESERVED.
-                MARVEL AND ALL RELATED CHARACTER NAMES: © & ™ 2022 MARVEL
-                Footer
-            </h2>
-            <h2 style={style}>
-
-                For Ratings Reasons: Filmratings.com | MPA | Privacy Policy | CA Privacy Policy | Children's Privacy
-                Policy | AD Choices | Terms of Use | Your Privacy Choices | Cookie Consent Tool
-                US Consumer DSR
-            </h2 >
-        </div>
+        <>
+            {loading ? <Spinner/> :
+                <>
+                    <div style={{background: "black"}}>
+                        <h2 style={style}>
+                            {info ? (
+                                <>
+                                    {info.info}
+                                </>
+                            ) : null}
+                        </h2>
+                        <h2 style={style}>
+                            {info ? (
+                                <>
+                                    {info.info1}
+                                </>
+                            ) : null}
+                        </h2>
+                        <h2 style={style}>
+                            {info ? (
+                                <>
+                                    {info.info2}
+                                </>
+                            ) : null}
+                        </h2>
+                    </div>
+                </>
+            }
+        </>
     );
 };
 
