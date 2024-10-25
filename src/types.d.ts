@@ -14,3 +14,9 @@ export interface IPost {
 export interface IPostAPI {
     [id: string]: IPost;
 }
+
+export interface IInfoAPI {
+    info: string,
+    info1: string,
+    info2: string,
+}
