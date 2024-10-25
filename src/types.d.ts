@@ -1,22 +1,22 @@
 export interface IPostForm {
-    title: string,
-    date: string,
-    description: string,
+  title: string;
+  date: string;
+  description: string;
 }
 
 export interface IPost {
-    id: string,
-    title: string,
-    date: string,
-    description: string,
+  id: string;
+  title: string;
+  date: string;
+  description: string;
 }
 
 export interface IPostAPI {
-    [id: string]: IPost;
+  [id: string]: IPost;
 }
 
 export interface IInfoAPI {
-    info: string,
-    info1: string,
-    info2: string,
+  info: string;
+  info1: string;
+  info2: string;
 }
