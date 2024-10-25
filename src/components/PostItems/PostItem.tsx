@@ -8,7 +8,7 @@ interface PostItem {
 }
 
 
-const BlogItems: React.FC<PostItem> = ({blog}) => {
+const PostItems: React.FC<PostItem> = ({blog}) => {
     return (
         <>
             <Card sx={{width: '100%'}}>
@@ -19,7 +19,7 @@ const BlogItems: React.FC<PostItem> = ({blog}) => {
                 </CardContent>
                 <CardActions style={{display: "flex", justifyContent: "space-between"}}>
                     <Button size="small"
-                            to={`/posts/${blog.id}`}
+                            to={`/posts/${blog.id}/read`}
                             component={NavLink}
                             color='warning'
                     >Read more
@@ -33,4 +33,4 @@ const BlogItems: React.FC<PostItem> = ({blog}) => {
     );
 };
 
-export default BlogItems;
+export default PostItems;

@@ -1,7 +1,7 @@
 import {IPost} from "../../types";
 
 import {Button, Card, CardActions, CardContent, Typography} from "@mui/material";
-import {NavLink, useNavigate, useParams} from "react-router-dom";
+import {NavLink, Outlet, useNavigate, useParams} from "react-router-dom";
 import axiosAPI from "../../axiosAPI.tsx";
 import {useCallback, useEffect, useState} from "react";
 import Spinner from "../../components/UI/Spinner/Spinner.tsx";
@@ -51,7 +51,7 @@ const ReadPost = () => {
         <>
             {loading ? <Spinner/> :
                 <>
-                    {post ? <Card sx={{minWidth: 275}}>
+                    {post ? <Card sx={{minWidth: 275, margin: '20px 0'}}>
                         <CardContent>
                             <Typography gutterBottom sx={{fontSize: 20}}>
                                 <strong>{post.title}</strong>
@@ -78,7 +78,9 @@ const ReadPost = () => {
                     </Card> : null}
                 </>
             }
+            <Outlet/>
         </>
+
     );
 };
 

@@ -2,8 +2,9 @@ import {useCallback, useEffect, useState} from "react";
 import {IPost, IPostAPI} from "../../types";
 import axiosAPI from "../../axiosAPI.tsx";
 import Grid from "@mui/material/Grid2";
-import BlogItems from "../../components/PostItems/PostItem.tsx";
+import PostItems from "../../components/PostItems/PostItem.tsx";
 import Spinner from "../../components/UI/Spinner/Spinner.tsx";
+import {Outlet} from "react-router-dom";
 
 
 const Home = () => {
@@ -44,13 +45,14 @@ const Home = () => {
                         <>
                             <Grid container spacing={2}>
                                 {posts.map(post => (
-                                    <BlogItems key={post.id} blog={post}/>
+                                    <PostItems key={post.id} blog={post}/>
                                 ))}
                             </Grid>
                         </>
                     }
                 </>
             }
+            <Outlet/>
         </>
     );
 };

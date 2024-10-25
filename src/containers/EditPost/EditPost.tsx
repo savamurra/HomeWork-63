@@ -36,15 +36,13 @@ const EditPost = () => {
     const submitForm = async (post: IPostForm) => {
         try {
             if (params.idPost) {
-                await axiosAPI.put(`blog/${params.idPost}.json`, {...post});
+                await axiosAPI.put(`post/${params.idPost}.json`, {...post});
                 navigate('/');
             }
         } catch (error) {
             console.error(error);
         }
-
     };
-
 
     return (
         <>

@@ -12,7 +12,7 @@ const initial = {
 
 interface Props {
     postToEdit? : IPostForm;
-    submitForm: (data: IPostForm) => void;
+    submitForm?: (data: IPostForm) => void;
 }
 
 const PostForm: React.FC<Props> = ({submitForm, postToEdit}) => {
@@ -40,15 +40,15 @@ const PostForm: React.FC<Props> = ({submitForm, postToEdit}) => {
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        submitForm({...form});
 
+        if (submitForm) submitForm({...form});
         navigate('/');
 
         setForm({...initial});
     };
 
     return (
-        <form onSubmit={onSubmit}>
+        <form onSubmit={onSubmit} style={{border: '1px solid #eee', margin: '20px 0', padding: '20px 0'}}>
             <Typography variant="h4" sx={{ flexGrow: 1, textAlign: 'center'}}>{postToEdit ? 'Edit post' : 'Add new post'}</Typography>
             <Grid container spacing={2} sx={{mx: "auto", width: "50%", mt: 4}}>
                 <Grid size={12}>
